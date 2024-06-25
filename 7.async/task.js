@@ -8,7 +8,7 @@ class AlarmClock {
         if(!time || !callback) {
             throw new Error("Отсутствуют обязательные аргументы");
         }
-        else if(this.alarmCollection.find(clock => clock.time = time)) {
+        else if(this.alarmCollection.find(clock => clock.time == time)) {
             console.warn("Уже присутствует звонок на это же время");
         }
         this.alarmCollection.push({callback, time, canCall: true});
@@ -28,7 +28,7 @@ class AlarmClock {
         }
         this.intervalId = setInterval(() => {
             this.alarmCollection.forEach(clock => {
-                if(clock.time = this.getCurrentFormattedTime() && clock.canCall) {
+                if(clock.time == this.getCurrentFormattedTime() && clock.canCall) {
                     clock.canCall = false;
                     clock.callback();
                 }
